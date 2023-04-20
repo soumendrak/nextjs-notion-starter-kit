@@ -1,7 +1,7 @@
 // global styles shared across the entire site
 import * as React from 'react'
-import type { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
+import type {AppProps} from 'next/app'
+import {useRouter} from 'next/router'
 
 import * as Fathom from 'fathom-client'
 // used for rendering equations (optional)
@@ -19,14 +19,9 @@ import 'styles/notion.css'
 // global style overrides for prism theme (optional)
 import 'styles/prism-theme.css'
 
-import { bootstrap } from '@/lib/bootstrap-client'
-import {
-  fathomConfig,
-  fathomId,
-  isServer,
-  posthogConfig,
-  posthogId
-} from '@/lib/config'
+import {bootstrap} from '@/lib/bootstrap-client'
+import {fathomConfig, fathomId, isServer, posthogConfig, posthogId} from '@/lib/config'
+import {Analytics} from '@vercel/analytics/react';
 
 if (!isServer) {
   bootstrap()
@@ -61,5 +56,11 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+
+  return (
+    <>
+      <Component {... pageProps} />
+      <Analytics/>
+    </>
+  );
 }
